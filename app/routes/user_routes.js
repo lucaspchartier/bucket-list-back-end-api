@@ -1,3 +1,4 @@
+// Express docs: http://expressjs.com/en/api.html
 const express = require('express')
 // jsonwebtoken docs: https://github.com/auth0/node-jsonwebtoken
 const crypto = require('crypto')
@@ -63,7 +64,6 @@ router.post('/sign-up', (req, res) => {
 router.post('/sign-in', (req, res) => {
   const pw = req.body.credentials.password
   let user
-
   // find a user based on the email that was passed
   User.findOne({ email: req.body.credentials.email })
     .then(record => {
