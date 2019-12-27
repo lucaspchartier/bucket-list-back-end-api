@@ -35,10 +35,12 @@ router.get('/items', requireToken, (req, res) => {
   // console.log(Item.find({owner: req.user._id}))
     .then(items => {
       // console.log('USER ID:', req.user.id)
+
       const itemOwner = items.filter(item => {
         // console.log('owners', JSON.stringify(item.owner))
         // console.log('req', JSON.stringify(req.user._id))
         // console.log('Why arent these equal?? ::', JSON.stringify(item.owner) === JSON.stringify(req.user._id))
+
         if (JSON.stringify(item.owner) === JSON.stringify(req.user._id)) {
           // console.log('\nIS THIS WORKING\n')
           return true
@@ -73,6 +75,7 @@ router.get('/items/:id', requireToken, (req, res) => {
 router.post('/items', requireToken, (req, res) => {
   // set owner of new item to be current user
   req.body.item.owner = req.user.id
+
   Item.create(req.body.item)
     // respond to succesful `create` with status 201 and JSON of new "item"
     .then(item => {
@@ -97,6 +100,7 @@ router.patch('/items/:id', requireToken, (req, res) => {
       // pass the `req` object and the Mongoose record to `requireOwnership`
       // it will throw an error if the current user isn't the owner
       requireOwnership(req, item)
+
       // the client will often send empty strings for parameters that it does
       // not want to update. We delete any key/value pair where the value is
       // an empty string before updating
@@ -109,6 +113,7 @@ router.patch('/items/:id', requireToken, (req, res) => {
       // pass the result of Mongoose's `.update` to the next `.then`
       return item.update(req.body.item)
     })
+
     // if that succeeded, return 204 and no JSON
     .then(() => Item.findById(id))
     .then(item => res.status(200).json({ item: item.toObject() }))
