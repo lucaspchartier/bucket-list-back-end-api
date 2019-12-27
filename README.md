@@ -25,9 +25,9 @@ Once a user signs up and signs in, the user is able to create a bucket list item
 | DELETE | `/items/:id/`          | `items#delete`    |
 
 ### List of Technologies Used
-* JavaScript
-* Express
-* Mongodb
+* Node.js
+* Express.js
+* MongoDB
 * Mongoose
 
 ### Unsolved problems
