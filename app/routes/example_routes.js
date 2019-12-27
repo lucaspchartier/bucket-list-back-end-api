@@ -61,6 +61,7 @@ router.get('/examples/:id', requireToken, (req, res) => {
 router.post('/examples', requireToken, (req, res) => {
   // set owner of new example to be current user
   req.body.example.owner = req.user.id
+
   Example.create(req.body.example)
     // respond to succesful `create` with status 201 and JSON of new "example"
     .then(example => {
@@ -78,12 +79,14 @@ router.patch('/examples/:id', requireToken, (req, res) => {
   // if the client attempts to change the `owner` property by including a new
   // owner, prevent that by deleting that key/value pair
   delete req.body.example.owner
+
   Example.findById(req.params.id)
     .then(handle404)
     .then(example => {
       // pass the `req` object and the Mongoose record to `requireOwnership`
       // it will throw an error if the current user isn't the owner
       requireOwnership(req, example)
+
       // the client will often send empty strings for parameters that it does
       // not want to update. We delete any key/value pair where the value is
       // an empty string before updating
@@ -92,6 +95,7 @@ router.patch('/examples/:id', requireToken, (req, res) => {
           delete req.body.example[key]
         }
       })
+
       // pass the result of Mongoose's `.update` to the next `.then`
       return example.update(req.body.example)
     })
