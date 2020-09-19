@@ -33,6 +33,7 @@ const auth = require('./lib/auth')
 // establish database connection
 mongoose.Promise = global.Promise
 mongoose.connect(db, {
+  useNewUrlParser: true,
   useUnifiedTopology: true
 })
 
