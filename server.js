@@ -34,7 +34,8 @@ const auth = require('./lib/auth')
 mongoose.Promise = global.Promise
 mongoose.connect(db, {
   useNewUrlParser: true,
-  useUnifiedTopology: true
+  useUnifiedTopology: true,
+  useCreateIndex: true
 })
 
 // instantiate express application object
