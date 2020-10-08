@@ -59,7 +59,7 @@ app.use((req, res, next) => {
     req.headers.authorization = auth.replace('Token token=', 'Bearer ')
   }
 
-  res.header('Access-Control-Allow-Origin', 'lucaspchartier.github.io')
+  res.header('Access-Control-Allow-Origin', 'http://localhost:7165')
   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept')
 
   next()
