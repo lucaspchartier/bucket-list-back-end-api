@@ -61,6 +61,9 @@ app.use((req, res, next) => {
     req.headers.authorization = auth.replace('Token token=', 'Bearer ')
   }
 
+  const origin = req.get('origin')
+  console.log('This is the origin of the domain:', origin)
+
   next()
 })
 
