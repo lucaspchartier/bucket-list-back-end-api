@@ -52,16 +52,14 @@ const port = process.env.PORT || 4741
 // of `Authorization: Token token=<token>` OR the Express convention of
 // `Authorization: Bearer <token>`
 app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', 'https://lucaspchartier.github.io/')
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept')
   if (req.headers.authorization) {
     const auth = req.headers.authorization
     // if we find the Rails pattern in the header, replace it with the Express
     // one before `passport` gets a look at the headers
     req.headers.authorization = auth.replace('Token token=', 'Bearer ')
   }
-
-  res.header('Access-Control-Allow-Origin', 'https://lucaspchartier.github.io/')
-  // res.header('Access-Control-Allow-Methods', 'DELETE, POST, GET, OPTIONS')
-  // res.header('Access-Control-Allow-Headers', 'Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With')
 
   next()
 })
