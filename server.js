@@ -44,7 +44,6 @@ const app = express()
 // set CORS headers on response from this API using the `cors` NPM package
 // `CLIENT_ORIGIN` is an environment variable that will be set on Heroku
 app.use(cors({ origin: process.env.CLIENT_ORIGIN || 'http://localhost:7165' }))
-// app.options('*', cors({ origin: process.env.CLIENT_ORIGIN || 'http://localhost:7165' }))
 
 // define port for API to run on
 const port = process.env.PORT || 4741
@@ -53,8 +52,6 @@ const port = process.env.PORT || 4741
 // of `Authorization: Token token=<token>` OR the Express convention of
 // `Authorization: Bearer <token>`
 app.use((req, res, next) => {
-  // res.header('Access-Control-Allow-Origin', '*')
-  // res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept')
   if (req.headers.authorization) {
     const auth = req.headers.authorization
     // if we find the Rails pattern in the header, replace it with the Express
